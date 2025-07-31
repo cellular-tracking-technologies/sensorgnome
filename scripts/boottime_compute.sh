@@ -5,12 +5,25 @@ if test -f $USB_HUB_LINK; then
 	rm $USB_HUB_LINK
 fi
 
-if test $version -ge 3; then
-	echo 'linking v3 sensorgnome hub map'
-	ln -s /etc/ctt/sensorgnome/v3_usb_hub_rules.txt $USB_HUB_LINK
+typeset -i version=$(cat /etc/ctt/station-revision)
+if test $version -ge 3
+then
+	typeset -i revision=$(cat /etc/ctt/station-board-revision)
+	case $revision in
+		2)
+			# V3 radio map revision 3
+            echo 'linking v3 revision 3 sensorgnome hub map'
+            ln -s /lib/ctt/sensorgnome/sensorgnome/hub-rules/v3/r3/rules.txt $USB_HUB_LINK ;;
+
+		*)
+			# V3 Radio Map for revision 0, 1 boards - defaulting
+            echo 'linking v3 revision 1,2 sensorgnome hub map'
+            ln -s /lib/ctt/sensorgnome/sensorgnome/hub-rules/v3/r0/rules.txt $USB_HUB_LINK ;;
+	esac
 else
+	# V2 radio map
 	echo 'lniking v2 sensorgnome hub map'
-	ln -s /etc/ctt/sensorgnome/v2_usb_hub_rules.txt $USB_HUB_LINK
+    ln -s /lib/ctt/sensorgnome/sensorgnome/hub-rules/v2/rules.txt $USB_HUB_LINK ;;
 fi
 
 SENSORGNOME_UDEV_DIR="/dev/sensorgnome/usb"
