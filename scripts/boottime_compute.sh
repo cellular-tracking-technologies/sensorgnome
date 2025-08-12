@@ -23,7 +23,7 @@ then
 else
 	# V2 radio map
 	echo 'lniking v2 sensorgnome hub map'
-    ln -s /lib/ctt/sensorgnome/sensorgnome/hub-rules/v2/rules.txt $USB_HUB_LINK ;;
+    ln -s /lib/ctt/sensorgnome/sensorgnome/hub-rules/v2/rules.txt $USB_HUB_LINK 
 fi
 
 SENSORGNOME_UDEV_DIR="/dev/sensorgnome/usb"
